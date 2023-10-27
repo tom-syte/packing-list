@@ -31,7 +31,7 @@
         if (newItem !== "") {
           const li = document.createElement("li");
           // Each item has buttons for editing, deleting, and moving
-          li.innerHTML = `${newItem} <button onclick="editItem(this)">Edit</button> <button onclick="deleteItem(this)">Delete</button> <button onclick="moveToPacked(this)">Found</button>`;
+          li.innerHTML = `${newItem} <button onclick="editItem(this)">Edit</button> <button onclick="deleteItem(this)">Delete</button> <button onclick="moveToPacked(this)">Packed</button>`;
           document.getElementById("foundList").appendChild(li);
           document.getElementById("newItem").value = "";
         }
