@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Packing List</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Add this line to link to your CSS file -->
+  </head>
+  <body>
+    <div class="container">
+      <h1>Packing List</h1>
+      <!-- Input field for adding new items -->
+      <input type="text" id="newItem" placeholder="Enter a new item" />
+      <!-- Button to trigger the addItem function -->
+      <button onclick="addItem()">Add Item</button>
+
+      <!-- List of found items -->
+      <h2>Found</h2>
+      <ul id="foundList"></ul>
+
+      <!-- List of packed items -->
+      <h2>Packed</h2>
+      <ul id="packedList"></ul>
+    </div>
+
+    <script>
+      // Function to add a new item to the "Found" list
+      function addItem() {
+        const newItem = document.getElementById("newItem").value;
+        if (newItem !== "") {
+          const li = document.createElement("li");
+          // Each item has buttons for editing, deleting, and moving
+          li.innerHTML = `${newItem} <button onclick="editItem(this)">Edit</button> <button onclick="deleteItem(this)">Delete</button> <button onclick="moveToPacked(this)">Found</button>`;
+          document.getElementById("foundList").appendChild(li);
+          document.getElementById("newItem").value = "";
+        }
+      }
+
+      // Function to edit an item in the list
+      function editItem(element) {
+        const editedItem = prompt(
+          "Edit item:",
+          element.parentNode.firstChild.nodeValue.trim()
+        );
+        if (editedItem !== null && editedItem !== "") {
+          element.parentNode.firstChild.nodeValue = editedItem;
+        }
+      }
+
+      // Function to delete an item from the list
+      function deleteItem(element) {
+        element.parentNode.remove();
+      }
+
+      // Function to move an item to the "Packed" list
+      function moveToPacked(element) {
+        const li = element.parentNode;
+        li.querySelector("button:nth-child(3)").textContent = "Unfound";
+        li.querySelector("button:nth-child(3)").onclick = function () {
+          moveToFound(this);
+        };
+        document.getElementById("packedList").appendChild(li);
+      }
+
+      // Function to move an item back to the "Found" list
+      function moveToFound(element) {
+        const li = element.parentNode;
+        li.querySelector("button:nth-child(3)").textContent = "Found";
+        li.querySelector("button:nth-child(3)").onclick = function () {
+          moveToPacked(this);
+        };
+        document.getElementById("foundList").appendChild(li);
+      }
+    </script>
+  </body>
+</html>
